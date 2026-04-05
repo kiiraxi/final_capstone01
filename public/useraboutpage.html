@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Treasury Office</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+  <style>
+     .nav-item .nav-link {
+                    position: relative;
+                    color: #fcf4f4; /* Default text color */
+                    font-weight: normal;
+                    padding: 8px 15px;
+                    transition: all 0.3s ease-in-out; /* Smooth transition */
+                }
+                
+                .nav-item .nav-link:hover {
+                    color: white !important;
+                    font-weight: bold;
+                    background-color: #ece5e978; /* Adds background color */
+                    border-radius: 5px;
+                    padding: 8px 15px; /* Ensures padding stays the same */
+                    text-decoration: none; /* Remove default underline */
+                }
+                
+                /* Underline animation */
+                .nav-item .nav-link::after {
+                    content: "";
+                    position: absolute;
+                    left: 50%;
+                    bottom: 0;
+                    width: 0;
+                    height: 2px;
+                    background-color: white;
+                    transition: all 0.3s ease-in-out;
+                    transform: translateX(-50%);
+                }
+                
+                .nav-item .nav-link:hover::after {
+                    width: 100%;
+                }
+  </style>
+</head>
+<body id="page-top">
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+        <div class="container px-5">
+            <a class="navbar-brand" href="index.html">
+                <img src="assets/img/leonlogo.png" alt="Treasury Office Logo" style="max-width: 100px;">
+                <div style="display: inline-block; vertical-align: middle; margin-left:10px">
+                    <div style="font-size: 16px; font-weight: bold;"> Republic of the Philippines</div>
+                    <div style="font-size: 16px;"> Province of Iloilo</div>
+                    <div style="font-size: 16px; "> Municipality of Leon</div>
+                    <div style="font-size: 14px; "> Official Website </div>
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" 
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="userhomepage.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="userservicepage.html">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="useraboutpage.html">About Us</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="logout()" id="">LOGOUT</a>
+                      </li>
+                      
+                      
+    
+                      <script>
+                        function logout() {
+                            // Send a POST request to the server to log out
+                            fetch('/logout', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                            })
+                            .then(response => {
+                                if (response.ok) {
+                                    // Redirect to the homepage after successful logout
+                                    window.location.href = 'index.html';  // Change this to your actual homepage
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Logout failed', error);
+                            });
+                        }
+                    </script>
+    
+                    <!-- Dropdown for Accounts -->
+                    <!--<li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="accountsDropdown" role="button" 
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Accounts
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="accountsDropdown">
+                            <li><a class="dropdown-item" href="adminlogin.html">Admin</a></li>
+                            <li><a class="dropdown-item" href="login.html">User</a></li>
+                        </ul>
+                    </li>-->
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+</br>
+</br>
+</br>
+</br>
+</br>
+    <!-- About Us Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <!-- Image Section with Border and Shadow, Auto-sized Logo -->
+                <div class="col-md-6 text-center">
+                    <div class="p-4" style="border: 5px solid #ffffff; border-radius: 50%;">
+                        <img class="img-fluid rounded-circle" src="assets/img/leonlogo.png" alt="Cedula Logo" style="max-width: 75%; height: auto; object-fit: cover;" />
+                    </div>
+                </div>
+
+                <!-- About Us Content -->
+                <div class="col-md-6">
+                    <div class="gradient-background">
+                        <h2 class="display-4">About Us</h2>
+                        <p>
+                            Welcome to the Cedula e-Service Portal of the Municipality of Leon! This online platform is designed to simplify the process of reserving and processing cedulas (residence certificates) for all residents.
+                        </p>
+                        <p>
+                            With the Cedula e-Service Portal, residents can easily request and schedule appointments for their cedula issuance at their convenience. This eliminates long waiting times and makes the process more efficient. The system allows for seamless communication with the Municipal Office, where the requests will be reviewed and approved or rejected by authorized personnel.
+                        </p>
+                        <p>
+                            Our goal is to enhance accessibility, speed, and convenience for residents, providing an easy way to handle this essential document while reducing manual processes for workers in the municipality.
+                        </p>
+                        <p>
+                            Thank you for choosing the Cedula e-Service Portal — a faster, easier way to get your cedula in the Municipality of Leon!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<script>
+    if (performance.getEntriesByType("navigation")[0].type === "back_forward") {
+      location.reload(true); // Force re-fetch from server
+    }
+  </script>
+<script>
+    window.onload = function () {
+      // If user navigated here using the back button
+      if (performance.navigation.type === 2) {
+        location.reload(true); // Force reload from server
+      }
+    };
+  </script>
+
+     <!-- Footer-->
+<footer class="py-5 bg-black">
+    <div class="container px-5">
+        <div class="row text-white">
+            <!-- Address Section -->
+            <div class="col-md-4 mb-4">
+                <h5>Address</h5>
+                <p>Capalla Avenue, Poblacion, Leon, Iloilo 5026, Philippines.</p>
+            </div>
+            <!-- Contact Us Section -->
+            <div class="col-md-4 mb-4">
+                <h5>Contact Us</h5>
+                <p>Email: ccommunity@gmail.com</p>
+                <p>Phone: (033) 332-1399</p>
+            </div>
+            <!-- Social Media Section -->
+            <div class="col-md-4 mb-4">
+                <h5>Follow Us</h5>
+                <a href="https://facebook.com" class="text-white me-3">
+                    <i class="fab fa-facebook fa-2x"></i>
+                </a>
+                <a href="https://twitter.com" class="text-white me-3">
+                    <i class="fab fa-twitter fa-2x"></i>
+                </a>
+                <a href="https://instagram.com" class="text-white me-3">
+                    <i class="fab fa-instagram fa-2x"></i>
+                </a>
+                <a href="https://linkedin.com" class="text-white me-3">
+                    <i class="fab fa-linkedin fa-2x"></i>
+                </a>
+            </div>
+        </div>
+        <p class="m-0 text-center text-white small mt-4">Copyright &copy; CATALYST 2025</p>
+    </div>
+
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Font Awesome for Social Media Icons -->
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+
+
+</body>
+</html>
