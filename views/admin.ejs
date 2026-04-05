@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Cedula Portal</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">   
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f4f7fb;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: #ffffff !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: #ffffff !important;
+            padding: 10px 15px;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #f8f9fa !important;
+            background-color: #3b7c9a;
+        }
+       
+        .logout-btn {
+          padding: 10px 20px;
+          font-size: 16px;
+          background-color: #294461;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          position: absolute;
+          top: 35px;
+          right: 10px;
+        }
+      
+        .logout-btn:hover {
+          background-color: #348dec;
+        }
+      
+
+        .card {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .card-body {
+            padding: 25px;
+        }
+
+        .card-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .card-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .stats-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .stats-card p {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .table {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .table th,
+        .table td {
+            vertical-align: middle;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .badge {
+            font-size: 0.875rem;
+        }
+
+        .card.bg-primary {
+            background-color: #3b7c9a !important;
+        }
+
+        .card.bg-warning {
+            background-color: #f29c11 !important;
+        }
+
+        .card.bg-success {
+            background-color: #55c57a !important;
+        }
+
+        .card.bg-danger {
+            background-color: #f27474 !important;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .stats-card {
+                margin-bottom: 20px;
+            }
+
+            .table th,
+            .table td {
+                font-size: 0.9rem;
+            }
+
+            .card-title {
+                font-size: 18px;
+            }
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        .nav-item {
+            margin-left: 15px;
+        }
+    </style>
+</head>
+
+<body>
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <div class="d-flex align-items-center">
+      <img src="assets/img/leonlogo.png" alt="Treasury Office Logo" style="max-width: 100px; margin-right: 20px;">
+      <a class="navbar-brand mb-0 h1" href="#">Cedula Admin Office</a>
+    </div>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item dropdown me-3">
+          <a class="nav-link dropdown-toggle" href="#" id="navDropdownIcon" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="navbar-toggler-icon"></span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navDropdownIcon">
+            <li><a class="dropdown-item" href="/admin">Dashboard</a></li>
+            <li><a class="dropdown-item" href="/taxreport">Tax Collection</a></li>
+            <li><a class="dropdown-item" href="/adminlogin.html">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="container-fluid mt-4">
+        <h2 class="text-center mb-4">Leon's Admin Dashboard</h2>
+
+        <!-- Statistics Section -->
+        <div class="row text-center mb-4">
+            <div class="col-md-3 mb-3">
+                <div class="card stats-card bg-primary text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Users</h5>
+                        <p class="card-text" id="totalUsers">Loading...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card stats-card bg-warning text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Pending Applications</h5>
+                        <p class="card-text" id="pendingReservations">Loading...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card stats-card bg-success text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Approved Cedula</h5>
+                        <p class="card-text" id="approvedCedula">Loading...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card stats-card bg-danger text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Rejected Cedula</h5>
+                        <p class="card-text" id="rejectedCedula">Loading...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+     <!-- Pending Application Table -->
+<div class="table-responsive">
+  <div class="card mb-4">
+    <div class="card-header" style="background-color: #343a40; color: white; text-align: center; font-size: 20px;">
+      Pending Applications
+    </div>
+
+    <div class="card-body">
+      <% if (action == 'list') { %>
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>User ID</th>
+              <th>Full Name</th>
+              <th>Certificate Type</th>
+              <th>Date Request</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (sampledata.length > 0) { %>
+              <% sampledata.forEach((mydata) => { %>
+                <tr>
+                  <td><%= mydata.id %></td>
+                  <td><%= mydata.USER_ID %></td>
+                  <td><%= mydata.FIRST_NAME %> <%= mydata.LAST_NAME %></td>
+                  <td><%= mydata.CERTIFICATE_TYPE %></td>
+                  <td><%= mydata.DATE_ISSUED %></td>
+
+
+                  <td>
+                    <span class="badge 
+                      <%= mydata.STATUS === 'Approved' ? 'bg-success' : 
+                          mydata.STATUS === 'Rejected' ? 'bg-danger' : 
+                          'bg-warning' %>">
+                      <%= mydata.STATUS %>
+                    </span>
+                  </td>
+                 <td>
+  <div class="d-flex justify-content-center gap-2">
+    <% if (mydata.source === 'ptrform') { %>
+      <a href="/ptrform-details/<%= mydata.id %>" class="btn btn-info btn-sm">
+        <i class="bi bi-eye" style="font-size: 1rem;"></i>
+      </a>
+    <% } else if (mydata.source === 'corporation') { %>
+      <a href="/corporation-details/<%= mydata.id %>" class="btn btn-info btn-sm">
+        <i class="bi bi-eye" style="font-size: 1rem;"></i>
+      </a>
+    <% } else { %>
+      <a href="/form-details/<%= mydata.id %>" class="btn btn-info btn-sm">
+        <i class="bi bi-eye" style="font-size: 1rem;"></i>
+      </a>
+    <% } %>
+
+    <% if (mydata.STATUS === 'Pending') { %>
+      <a href="/approve/<%= mydata.id %>" 
+         onclick="return confirm('Approve <%= mydata.FIRST_NAME %> <%= mydata.LAST_NAME %>?')" 
+         class="btn btn-success btn-sm">
+        Approve
+      </a>
+      <a href="/reject/<%= mydata.id %>" 
+         onclick="return confirm('Reject <%= mydata.FIRST_NAME %> <%= mydata.LAST_NAME %>?')" 
+         class="btn btn-danger btn-sm">
+        Reject
+      </a>
+    <% } %>
+  </div>
+</td>
+
+                </tr>
+                
+              <% }); %>
+            <% } else { %>
+              <tr>
+                <td colspan="5" class="text-center">No pending applications found.</td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+ <!-- Approved Table -->
+<div class="table-responsive">
+  <div class="card mb-4">
+    <div class="card-header" style="background-color: #28a745; color: white; text-align: center; font-size: 20px;">
+      Approved Cedula
+    </div>
+
+    <div class="card-body">
+      <% if (approvedData.length > 0) { %>
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>User ID</th>
+              <th>Full Name</th>
+              <th>Certificate Type</th>
+              <th>Date Request</th>
+              <th>Status</th>
+              <th>Payment Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+         <tbody>
+  <% approvedData.forEach((mydata) => { %>
+    <tr>
+      <td><%= mydata.id %></td>
+      <td><%= mydata.USER_ID %></td>
+      <td><%= mydata.FIRST_NAME %> <%= mydata.LAST_NAME %></td>
+      <td><%= mydata.CERTIFICATE_TYPE %></td>
+      <td><%= mydata.DATE_ISSUED %></td>
+      <td><span class="badge bg-success">Approved</span></td>
+      <td>
+        <% if (mydata.PAYMENT_STATUS === 'Paid') { %>
+          <span class="badge bg-success px-3 py-2">Paid</span>
+        <% } else if (mydata.PAYMENT_STATUS === 'Pending') { %>
+          <span class="badge bg-warning text-dark px-3 py-2">Pending</span>
+        <% } else { %>
+          <span class="badge bg-danger px-3 py-2">Unpaid</span>
+        <% } %>
+      </td>
+      <td>
+        <% if (mydata.source === 'form') { %>
+          <a href="/form-details/<%= mydata.id %>" class="btn btn-info btn-sm">
+            <i class="bi bi-eye" style="font-size: 1rem;"></i>
+          </a>
+        <% } else if (mydata.source === 'ptrform') { %>
+          <a href="/ptrform-details/<%= mydata.id %>" class="btn btn-info btn-sm">
+            <i class="bi bi-eye" style="font-size: 1rem;"></i>
+          </a>
+        <% } else if (mydata.source === 'corporation') { %>
+          <a href="/corporation-details/<%= mydata.id %>" class="btn btn-info btn-sm">
+            <i class="bi bi-eye" style="font-size: 1rem;"></i>
+          </a>
+        <% } %>
+
+        <a href="" data-bs-toggle="modal" data-bs-target="#update<%= mydata.id %>" class="btn btn-primary btn-sm">
+          <i class="fas fa-edit" style="font-size: 1rem;"></i>
+        </a>
+
+        <a href="#" onclick="deleteRecord('<%= mydata.id %>', '<%= mydata.FIRST_NAME %>', '<%= mydata.LAST_NAME %>')" class="btn btn-danger btn-sm">
+          <i class="bi bi-trash" style="font-size: 1rem;"></i>
+        </a>
+
+      <a href="/mark-done/form/<%= mydata.id %>" class="btn btn-primary">Mark as Done</a>
+
+
+      </td>
+    </tr>
+
+   <!-- Update Modal  -->
+ <div class="modal fade" id="update<%= mydata.id %>" tabindex="-1" aria-labelledby="updateModalLabel<%= mydata.id %>" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="updateModalLabel<%= mydata.id %>">Personal Information</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> </div>
+            <div class="modal-body">
+                <form action="/updateform/<%= mydata.id %>" method="POST">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="lastname" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="lastname" name="lname" value="<%= mydata.LASTNAME %>" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="firstname" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="firstname" name="firstname" value="<%= mydata.FIRSTNAME %>" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="middlename" class="form-label">Middle Name</label>
+                            <input type="text" class="form-control" id="middlename" name="middlename" value="<%= mydata.MIDDLENAME %>">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="citizenship" class="form-label">Citizenship</label>
+                        <input type="text" class="form-control" id="citizenship" name="citizenship" value="<%= mydata.CITIZENSHIP %>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Address</label>
+                        <input type="text" class="form-control" id="address" name="address" value="<%= mydata.ADDRESS %>">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="gender" class="form-label">Gender</label>
+                            <select class="form-select" id="gender" name="gender">
+                                <option value="Male" <%= mydata.GENDER == 'Male' ? 'selected' : '' %>>Male</option>
+                                <option value="Female" <%= mydata.GENDER == 'Female' ? 'selected' : '' %>>Female</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="civil_status" class="form-label">Civil Status</label>
+                            <select class="form-select" id="civil_status" name="civil_status">
+                                <option value="Single" <%= mydata.CIVIL_STATUS == 'Single' ? 'selected' : '' %>>Single</option>
+                                <option value="Married" <%= mydata.CIVIL_STATUS == 'Married' ? 'selected' : '' %>>Married</option>
+                                <option value="Divorced" <%= mydata.CIVIL_STATUS == 'Divorced' ? 'selected' : '' %>>Divorced</option>
+                                <option value="Widowed" <%= mydata.CIVIL_STATUS == 'Widowed' ? 'selected' : '' %>>Widowed</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="birth_place" class="form-label">Place of Birth</label>
+                        <input type="text" class="form-control" id="birth_place" name="birth_place" value="<%= mydata.PLACE_BIRTH %>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="birth_date" class="form-label">Birth Date</label>
+                        <input type="date" class="form-control" id="birth_date" name="birth_date" value="<%= mydata.DATE_BIRTH %>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="height" class="form-label">Height</label>
+                        <input type="text" class="form-control" id="height" name="height" value="<%= mydata.HEIGHT %>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="weight" class="form-label">Weight</label>
+                        <input type="text" class="form-control" id="weight" name="weight" value="<%= mydata.WEIGHT %>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="profession" class="form-label">Profession</label>
+                        <input type="text" class="form-control" id="profession" name="profession" value="<%= mydata.PBO %>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="tin" class="form-label">TIN</label>
+                        <input type="text" class="form-control" id="tin" name="tin" value="<%= mydata.TIN_NUMBER %>">
+                    </div>
+                    <h5 class="section-header mt-5 text-center">Tax Computation</h5>
+                    <div class="mb-3">
+                        <label for="gross_receipt" class="form-label">Gross Receipt</label>
+                        <div class="input-group"><span class="input-group-text">₱</span>
+                       <input type="text" class="form-control" id="gross_receipt" name="gross_receipt" value="<%= mydata.GRB %>">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="annual_income" class="form-label">Annual Income</label>
+                        <div class="input-group"><span class="input-group-text">₱</span>
+                        <input type="text" class="form-control" id="annual_income" name="annual_income" value="<%= mydata.AGI %>">
+                    </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="real_property_income" class="form-label">Real Property Income</label>
+                        <div class="input-group"><span class="input-group-text">₱</span>
+                        <input type="text" class="form-control" id="real_property_income" name="real_property_income" value="<%= mydata.RPI %>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="total_taxable" class="form-label">Total Taxable</label>
+                        <div class="input-group"><span class="input-group-text">₱</span>
+                        <input type="text" class="form-control" id="total_taxable" name="total_taxable" value="<%= mydata.TTA %>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="ctc_amount" class="form-label">CTC Amount</label>
+                        <div class="input-group"><span class="input-group-text">₱</span>
+                        <input type="text" class="form-control" id="ctc_amount" name="ctc_amount" value="<%= mydata.AMOUNT %>">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="modal fade" id="update<%= mydata.id %>" tabindex="-1" aria-labelledby="updateModalLabel<%= mydata.id %>" aria-hidden="true">
+      ...
+      <!-- modal form content here -->
+    </div>
+
+  <% }); %>
+</tbody>
+
+        </table>
+      <% } else { %>
+        <p class="text-center">No approved applications found.</p>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+
+     
+
+
+
+
+        <!-- Rejected Table -->
+        <div class="table-responsive">
+            <div class="card mb-4">
+                <div class="card-header" style="background-color: #f27474; color: white; text-align: center; font-size: 20px;">
+                    Rejected Cedula
+                </div>
+
+                <div class="card-body">
+                    <% if (rejectedData.length > 0) { %>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>User ID</th>
+                                    <th>Full Name</th>
+                                    <th>Certificate Type</th> 
+                                    <th>Date Request</th> 
+                                    <th>Status</th> 
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% rejectedData.forEach((mydata) => { %>
+                                    <tr>
+                                        <td><%= mydata.id %></td>
+                                        <td><%= mydata.USER_ID %></td>
+                                        <td><%= mydata.FIRST_NAME %> <%= mydata.LAST_NAME %></td>
+                                        <td><%= mydata.CERTIFICATE_TYPE %></td>
+                                        <td><%= mydata.DATE_ISSUED %></td>
+                                        <td>
+                                            <span class="badge bg-danger">Rejected</span>
+                                        </td>
+                                        <td>
+    <% if (mydata.source === 'form') { %>
+        <a href="/form-details/<%= mydata.id %>" class="btn btn-info btn-sm">
+            <i class="bi bi-eye" style="font-size: 1rem;"></i>
+        </a>
+    <% } else if (mydata.source === 'ptrform') { %>
+        <a href="/ptrform-details/<%= mydata.id %>" class="btn btn-info btn-sm">
+            <i class="bi bi-eye" style="font-size: 1rem;"></i>
+        </a>
+    <% } else if (mydata.source === 'corporation') { %>
+        <a href="/corporation-details/<%= mydata.id %>" class="btn btn-info btn-sm">
+            <i class="bi bi-eye" style="font-size: 1rem;"></i>
+        </a>
+    <% } %>
+
+    <a href="" data-bs-toggle="modal" data-bs-target="#update<%= mydata.id %>" class="btn btn-primary">
+        <i class="fas fa-edit" style="font-size: 1rem;"></i>
+    </a>
+
+    <a href="#" onclick="deleteRecord('<%= mydata.id %>', '<%= mydata.FIRST_NAME %>', '<%= mydata.LAST_NAME %>')" class="btn btn-danger btn-sm">
+        <i class="bi bi-trash" style="font-size: 1rem;"></i>
+    </a>
+</td>
+
+                                        
+   <!-- Update Modal  -->
+   <div class="modal fade" id="update<%= mydata.id %>" tabindex="-1" aria-labelledby="updateModalLabel<%= mydata.id %>" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="updateModalLabel<%= mydata.id %>">Personal Information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> </div>
+              <div class="modal-body">
+                  <form action="/updateform/<%= mydata.id %>" method="POST">
+                      <div class="row">
+                          <div class="col-md-4 mb-3">
+                              <label for="lastname" class="form-label">Last Name</label>
+                              <input type="text" class="form-control" id="lastname" name="lname" value="<%= mydata.LASTNAME %>" required>
+                          </div>
+                          <div class="col-md-4 mb-3">
+                              <label for="firstname" class="form-label">First Name</label>
+                              <input type="text" class="form-control" id="firstname" name="firstname" value="<%= mydata.FIRSTNAME %>" required>
+                          </div>
+                          <div class="col-md-4 mb-3">
+                              <label for="middlename" class="form-label">Middle Name</label>
+                              <input type="text" class="form-control" id="middlename" name="middlename" value="<%= mydata.MIDDLENAME %>">
+                          </div>
+                      </div>
+                      
+                      <div class="mb-3">
+                          <label for="citizenship" class="form-label">Citizenship</label>
+                          <input type="text" class="form-control" id="citizenship" name="citizenship" value="<%= mydata.CITIZENSHIP %>">
+                      </div>
+                      <div class="mb-3">
+                          <label for="address" class="form-label">Address</label>
+                          <input type="text" class="form-control" id="address" name="address" value="<%= mydata.ADDRESS %>">
+                      </div>
+                      <div class="row">
+                          <div class="col-md-6 mb-3">
+                              <label for="gender" class="form-label">Gender</label>
+                              <select class="form-select" id="gender" name="gender">
+                                  <option value="Male" <%= mydata.GENDER == 'Male' ? 'selected' : '' %>>Male</option>
+                                  <option value="Female" <%= mydata.GENDER == 'Female' ? 'selected' : '' %>>Female</option>
+                              </select>
+                          </div>
+                          <div class="col-md-6 mb-3">
+                              <label for="civil_status" class="form-label">Civil Status</label>
+                              <select class="form-select" id="civil_status" name="civil_status">
+                                  <option value="Single" <%= mydata.CIVIL_STATUS == 'Single' ? 'selected' : '' %>>Single</option>
+                                  <option value="Married" <%= mydata.CIVIL_STATUS == 'Married' ? 'selected' : '' %>>Married</option>
+                                  <option value="Divorced" <%= mydata.CIVIL_STATUS == 'Divorced' ? 'selected' : '' %>>Divorced</option>
+                                  <option value="Widowed" <%= mydata.CIVIL_STATUS == 'Widowed' ? 'selected' : '' %>>Widowed</option>
+                              </select>
+                          </div>
+                      </div>
+                      
+                      <div class="mb-3">
+                          <label for="birth_place" class="form-label">Place of Birth</label>
+                          <input type="text" class="form-control" id="birth_place" name="birth_place" value="<%= mydata.PLACE_BIRTH %>">
+                      </div>
+                      <div class="mb-3">
+                          <label for="birth_date" class="form-label">Birth Date</label>
+                          <input type="date" class="form-control" id="birth_date" name="birth_date" value="<%= mydata.DATE_BIRTH %>">
+                      </div>
+                      <div class="mb-3">
+                          <label for="height" class="form-label">Height</label>
+                          <input type="text" class="form-control" id="height" name="height" value="<%= mydata.HEIGHT %>">
+                      </div>
+                      <div class="mb-3">
+                          <label for="weight" class="form-label">Weight</label>
+                          <input type="text" class="form-control" id="weight" name="weight" value="<%= mydata.WEIGHT %>">
+                      </div>
+                      <div class="mb-3">
+                          <label for="profession" class="form-label">Profession</label>
+                          <input type="text" class="form-control" id="profession" name="profession" value="<%= mydata.PBO %>">
+                      </div>
+                      <div class="mb-3">
+                          <label for="tin" class="form-label">TIN</label>
+                          <input type="text" class="form-control" id="tin" name="tin" value="<%= mydata.TIN_NUMBER %>">
+                      </div>
+                      <h5 class="section-header mt-5 text-center">Tax Computation</h5>
+                      <div class="mb-3">
+                          <label for="gross_receipt" class="form-label">Gross Receipt</label>
+                          <div class="input-group"><span class="input-group-text">₱</span>
+                         <input type="text" class="form-control" id="gross_receipt" name="gross_receipt" value="<%= mydata.GRB %>">
+                          </div>
+                      </div>
+                      
+                      <div class="mb-3">
+                          <label for="annual_income" class="form-label">Annual Income</label>
+                          <div class="input-group"><span class="input-group-text">₱</span>
+                          <input type="text" class="form-control" id="annual_income" name="annual_income" value="<%= mydata.AGI %>">
+                      </div>
+                      <div class="mb-3">
+                          <label for="real_property_income" class="form-label">Real Property Income</label>
+                          <div class="input-group"><span class="input-group-text">₱</span>
+                          <input type="text" class="form-control" id="real_property_income" name="real_property_income" value="<%= mydata.RPI %>">
+                      </div>
+                      <div class="mb-3">
+                          <label for="total_taxable" class="form-label">Total Taxable</label>
+                          <div class="input-group"><span class="input-group-text">₱</span>
+                          <input type="text" class="form-control" id="total_taxable" name="total_taxable" value="<%= mydata.TTA %>">
+                      </div>
+                      <div class="mb-3">
+                          <label for="ctc_amount" class="form-label">CTC Amount</label>
+                          <div class="input-group"><span class="input-group-text">₱</span>
+                          <input type="text" class="form-control" id="ctc_amount" name="ctc_amount" value="<%= mydata.AMOUNT %>">
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary">Save</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  
+                                    </tr>
+                                <% }); %>
+                            </tbody>
+                        </table>
+                    <% } else { %>
+                        <p>No rejected users available.</p>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+        <!-- Issued Cedula Section -->
+<div class="card mt-4">
+   <div class="card-header" style="background-color: #5298ee; color: white; text-align: center; font-size: 20px;">
+                    Issued Cedula
+                </div>
+  </div>
+  <div class="card-body">
+    <table class="table table-bordered table-striped text-center">
+      <thead class="table-primary">
+        <tr>
+          <th>No.</th>
+          <th>User ID</th>
+          <th>Full Name</th>
+          <th>Certificate Type</th>
+          <th>Date Released</th>
+          <th>Status</th>
+          <th>Payment Status</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+  <% if (issuedData && issuedData.length > 0) { %>
+    <% issuedData.forEach((data, index) => { %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td><%= data.USER_ID %></td>
+        <td><%= data.FIRST_NAME %> <%= data.LAST_NAME %></td>
+        <td><%= data.CERTIFICATE_TYPE %></td>
+        <td><%= data.DATE_ISSUED %></td>
+       <td>
+  <% if (data.STATUS === 'Issued' || data.STATUS === 'Done') { %>
+    <span class="badge bg-primary">Done</span>
+  <% } else { %>
+    <span class="badge bg-secondary"><%= data.STATUS %></span>
+  <% } %>
+</td>
+
+        <td>
+          <% if (data.PAYMENT_STATUS === 'Paid') { %>
+            <span class="badge bg-success">Paid</span>
+          <% } else if (data.PAYMENT_STATUS === 'Pending') { %>
+            <span class="badge bg-warning text-dark">Pending</span>
+          <% } else { %>
+            <span class="badge bg-danger">Unpaid</span>
+          <% } %>
+        </td>
+      </tr>
+    <% }); %>
+  <% } else { %>
+    <tr>
+      <td colspan="7" class="text-center">No issued cedula found.</td>
+    </tr>
+  <% } %>
+</tbody>
+
+    </table>
+  </div>
+</div>
+
+
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".modal").forEach(modal => {
+                modal.addEventListener("shown.bs.modal", function () {
+                    const grossReceipt = modal.querySelector("[name='gross_receipt']");
+                    const annualIncome = modal.querySelector("[name='annual_income']");
+                    const realPropertyIncome = modal.querySelector("[name='real_property_income']");
+                    const totalTaxable = modal.querySelector("#total_taxable");
+                    const ctcAmount = modal.querySelector("#ctc_amount");
+        
+                    function calculateTax() {
+                        let gr = parseFloat(grossReceipt?.value) || 0;
+                        let ai = parseFloat(annualIncome?.value) || 0;
+                        let rp = parseFloat(realPropertyIncome?.value) || 0;
+        
+                        let total = gr + ai + rp;
+                        let tax = 5 + (total * 0.01); 
+        
+                        if (totalTaxable) {
+                            totalTaxable.value = total.toLocaleString('en-PH', { minimumFractionDigits: 2 });
+                        }
+                        if (ctcAmount) {
+                            ctcAmount.value = tax.toLocaleString('en-PH', { minimumFractionDigits: 2 });
+                        }
+                    }
+        
+                    [grossReceipt, annualIncome, realPropertyIncome].forEach(input => {
+                        input?.addEventListener("input", calculateTax);
+                    });
+        
+                    calculateTax(); 
+                });
+            });
+        });
+        </script>
+        
+
+
+    
+    <script>
+        function deleteRecord(id, firstName, lastName) {
+            if (confirm(`Are you sure you want to delete ${firstName} ${lastName}?`)) {
+                fetch(`/delete/${id}`, { method: 'DELETE' })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Record deleted successfully!');
+                        location.reload(); // Refresh page after deletion
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        }
+        </script>
+        
+        
+
+
+    <script>
+        // Fetch data for statistics
+        function fetchStats() {
+            fetch('/admin/stats')
+                .then(response => response.json())
+                .then(data => {
+                    // Update the HTML with the fetched data
+                    document.getElementById('totalUsers').textContent = data.totalUsers || '0';
+                    document.getElementById('pendingReservations').textContent = data.pendingReservations || '0';
+                    document.getElementById('approvedCedula').textContent = data.approvedCedula || '0';
+                    document.getElementById('rejectedCedula').textContent = data.rejectedCedula || '0';
+                })
+                .catch(err => {
+                    console.error('Error fetching stats:', err);
+                    document.getElementById('totalUsers').textContent = 'Error loading data';
+                    document.getElementById('pendingReservations').textContent = 'Error loading data';
+                    document.getElementById('approvedCedula').textContent = 'Error loading data';
+                    document.getElementById('rejectedCedula').textContent = 'Error loading data';
+                });
+        }
+
+       
+        window.onload = fetchStats;
+    </script>
+    
+</body>
+</html>

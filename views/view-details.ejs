@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Submitted Cedula Details</h2>
+        
+        <% if (user) { %>
+        <!-- Single User Details -->
+        <table class="table table-bordered">
+            <tr>
+                <th>Name</th>
+                <td><%= user.LAST_NAME %>, <%= user.FIRST_NAME %> <%= user.MIDDLE_NAME || '' %></td>
+            </tr>
+            <tr>
+                <th>Citizenship</th>
+                <td><%= user.CITIZENSHIP || 'N/A' %></td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td><%= user.ADDRESS || 'N/A' %></td>
+            </tr>
+            <tr>
+                <th>Gender</th>
+                <td><%= user.GENDER || 'N/A' %></td>
+            </tr>
+            <tr>
+                <th>Civil Status</th>
+                <td><%= user.CIVIL_STATUS || 'N/A' %></td>
+            </tr>
+            <tr>
+                <th>Birth Place</th>
+                <td><%= user.PLACE_BIRTH || 'N/A' %></td>
+            </tr>
+            <tr>
+                <th>Birth Date</th>
+                <td><%= user.DATE_BIRTH && !isNaN(new Date(user.DATE_BIRTH)) ? new Date(user.DATE_BIRTH).toLocaleDateString() : 'N/A' %></td>
+            </tr>
+            <tr>
+                <th>Height</th>
+                <td><%= user.HEIGHT || 'N/A' %></td>
+            </tr>
+            <tr>
+                <th>Weight</th>
+                <td><%= user.WEIGHT || 'N/A' %></td>
+            </tr>
+            <tr>
+                <th>Profession</th>
+                <td><%= user.PBO || 'N/A' %></td>
+            </tr>
+            <tr>
+                <th>TIN</th>
+                <td><%= user.TIN_NUMBER || 'N/A' %></td>
+            </tr>
+            <tr>
+                <th>Gross Receipt</th>
+                <td class="text-end">₱<%= user.GRB || '0.00' %></td>
+            </tr>
+            <tr>
+                <th>Annual Income</th>
+                <td class="text-end">₱<%= user.AGI || '0.00' %></td>
+            </tr>
+            <tr>
+                <th>Real Property Income</th>
+                <td class="text-end">₱<%= user.RPI || '0.00' %></td>
+            </tr>
+            <tr>
+                <th>Total Taxable</th>
+                <td class="text-end">₱<%= user.TTA || '0.00' %></td>
+            </tr>
+            <tr>
+                <th>CTC Amount</th>
+                <td class="text-end">₱<%= user.AMOUNT || '0.00' %></td>
+            </tr>
+            <tr>
+                <th>Place Issue</th>
+                <td><%= user.PLACE_ISSUE || 'N/A' %></td>
+            </tr>
+            <tr>
+                <th>Date Issue</th>
+                <td><%= user.DATE_ISSUE && !isNaN(new Date(user.DATE_ISSUE)) ? new Date(user.DATE_ISSUE).toLocaleDateString() : 'N/A' %></td>
+            </tr>
+        </table>
+        <% } else if (data && data.length > 0) { %>
+        <!-- List of Users -->
+        <h3 class="text-center mt-4">List of Users</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% data.forEach(function(user) { %>
+                    <tr>
+                        <td><%= user.LAST_NAME %>, <%= user.FIRST_NAME %></td>
+                        <td><a href="/view-details/<%= user.id %>" class="btn btn-info">View Details</a></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+        <% } else { %>
+            <p class="text-center text-danger">No users found or user details not available.</p>
+        <% } %>
+    </div>
+</body>
+</html>

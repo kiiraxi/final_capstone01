@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Community Tax Certificate</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      border: 2px solid black;
+      padding: 20px;
+      width: 800px;
+      margin: 0 auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 5px;
+      vertical-align: top;
+    }
+    .no-border th,
+    .no-border td {
+      border: none;
+    }
+    .title {
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .section {
+      font-weight: bold;
+      background-color: #f0f0f0;
+    }
+    .btn-print {
+      margin-top: 20px;
+    }
+    @media print {
+      .btn-print {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="title">COMMUNITY TAX CERTIFICATE  (CORPORATION) </div>
+
+  <table>
+    <tr>
+      <td>PLACE OF ISSUE: <strong><%= data.PLACE_ISSUED %></strong> </td>
+      <td>DATE: <strong id="currentDate"></strong></td>
+
+    </tr>
+    <tr>
+      <td colspan="2">CERTIFICATE NO</td>
+    </tr>
+    <tr>
+      <td>TIN (if any): <strong> <%= data.TIN %></strong></td>
+      <td>DATE OF REG./INCORPORATION:<strong> <%= new Date(data.DATE_REGISTRATION).toLocaleDateString() %> </strong></td>
+    </tr>
+    <tr>
+      <td colspan="4">COMPANY'S FULL NAME: <strong><%= data.COMPANY_NAME %></strong></td>
+    </tr>
+    <tr>
+      <td colspan="4">ADDRESS OF PRINCIPAL PLACE OF BUSINESS: <strong><%= data.ADDRESS  %></strong></td>
+    </tr>
+   <tr>
+  <td>
+    KIND OF ORGANIZATION:
+    <br>
+    <input type="checkbox" <%= data.ORGANIZATION === 'Corporation' ? 'checked' : '' %> /> CORPORATION
+    <br>
+    <input type="checkbox" <%= data.ORGANIZATION === 'Partnership' ? 'checked' : '' %> /> PARTNERSHIP
+    <input type="checkbox" <%= data.ORGANIZATION === 'Association' ? 'checked' : '' %> /> ASSOCIATION
+  </td>
+  <td>
+    PLACE OF INCORPORATION: <strong><%= data.PLACE_INCORPORATION %></strong>
+  </td>
+</tr>
+
+  </table>
+
+  <table>
+    <tr class="section">
+      <td colspan="3">TAX DETAILS</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Taxable Amount</td>
+      <td>Community Tax Due</td>
+    </tr>
+    <tr>
+      <td>A. BASIC COMMUNITY TAX (PHP 500.00)</td>
+      <td></td>
+      <td>₱ 500.00</td>
+    </tr>
+    <tr>
+      <td>B. ADDITIONAL COMMUNITY TAX (not to exceed PHP 10,000.00)</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Assessed value of real property owned in the Philippines: ₱0.00 — ₱0.00</td>
+      <td>₱ <strong><%= data.REAL_PROPERTY || '0.00' %></strong></td>
+      <td>₱ <strong><%= data.TOTAL_TAXABLE || '0.00' %></strong></td>
+    </tr>
+    <tr>
+      <td>Gross receipts, including dividends or earnings derived from business in the Phil. during the preceding year:  ₱0.00 — ₱0.00</td>
+    <td>₱ <strong><%= data.GROSS_RECEIPT || '0.00' %></strong></td>
+      <td>₱ <strong><%= data.GROSS_RECEIPT || '0.00' %></strong></td>
+    </tr>
+    <tr>
+      <td><b>Total:</b></td>
+     <td>₱ <strong>  </strong></td>
+      <td>₱ <strong><%= data.TOTAL_TAXABLE || '0.00' %></strong></td>
+    </tr>
+    <tr>
+      <td><b>Interest:</b></td>
+      <td colspan="2">₱ <strong><%= data.INTEREST || '0.00' %></strong></td>
+    </tr>
+   <tr>
+  <td><b>Total Amount Paid:</b></td>
+  <td colspan="2">₱ <strong id="amountValue"><%= data.CTC_AMOUNT || '0.00' %></strong></td>
+</tr>
+<tr>
+  <td colspan="3"><b>In Words:</b> <em id="amountInWords"></em></td>
+</tr>
+</table>
+
+  
+  <table class="mt-3">
+    <tr>
+      <td colspan="2">
+        <table style="width: 100%; border: none;">
+          <tr>
+            <td style="border: none;"></td>
+            <td style="text-align: center; border: none;">
+              ___________________________<br>
+              <strong>MUNICIPALITY TREASURER</strong>
+            </td>
+            <td style="border: none;"></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+
+  <div class="btn-print" style="position: fixed; top: 20px; right: 20px; display: flex; flex-direction: column; gap: 8px; z-index: 1000;">
+    <button class="btn btn-primary btn-sm" onclick="window.history.back()">Back</button>
+    <button class="btn btn-primary btn-sm" onclick="downloadPDF()">
+      <i class="bi bi-file-earmark-pdf"></i> Download
+    </button>
+    <button class="btn btn-primary btn-sm" onclick="window.print()">
+      <i class="bi bi-printer"></i> Print
+    </button>
+  </div>
+
+  <!-- current date -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const today = new Date();
+    const formattedDate = today.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+    document.getElementById('currentDate').textContent = formattedDate;
+  });
+</script>
+
+<!-- Convert total ctc_amount to words -->
+<script>
+  function numberToWords(num) {
+    const ones = [
+      '', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine',
+      'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen',
+      'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'
+    ];
+    const tens = [
+      '', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'
+    ];
+
+    function convert_hundreds(n) {
+      if (n < 20) return ones[n];
+      if (n < 100) return tens[Math.floor(n / 10)] + (n % 10 ? ' ' + ones[n % 10] : '');
+      return ones[Math.floor(n / 100)] + ' Hundred' + (n % 100 ? ' ' + convert_hundreds(n % 100) : '');
+    }
+
+    function convert_thousands(n) {
+      if (n < 1000) return convert_hundreds(n);
+      if (n < 1000000)
+        return convert_hundreds(Math.floor(n / 1000)) + ' Thousand' + (n % 1000 ? ' ' + convert_hundreds(n % 1000) : '');
+      if (n < 1000000000)
+        return convert_hundreds(Math.floor(n / 1000000)) + ' Million' + (n % 1000000 ? ' ' + convert_thousands(n % 1000000) : '');
+      return convert_hundreds(Math.floor(n / 1000000000)) + ' Billion' + (n % 1000000000 ? ' ' + convert_thousands(n % 1000000000) : '');
+    }
+
+    if (isNaN(num)) return '';
+    const [pesoPart, centavoPart] = num.toString().split('.');
+
+    let words = convert_thousands(parseInt(pesoPart)) + ' Pesos';
+    if (centavoPart) {
+      const cents = parseInt(centavoPart.substring(0, 2));
+      if (cents > 0) words += ' and ' + convert_hundreds(cents) + ' Centavos';
+    }
+    return words + ' Only';
+  }
+
+  // Automatically display the words when viewing
+  document.addEventListener('DOMContentLoaded', () => {
+    const amountText = document.getElementById('amountValue')?.innerText || '0';
+    const numericAmount = parseFloat(amountText.replace(/[^0-9.]/g, '')) || 0;
+    document.getElementById('amountInWords').textContent = numberToWords(numericAmount);
+  });
+</script>
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script>
+    function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      html2canvas(document.body).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const imgProps = pdf.getImageProperties(imgData);
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        pdf.save('community-tax-certificate.pdf');
+      });
+    }
+  </script>
+</body>
+</html>

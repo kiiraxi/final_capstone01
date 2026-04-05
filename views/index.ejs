@@ -1,0 +1,20 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Reference Number</th>
+            <th>Full Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% users.forEach(user => { %>
+            <tr>
+                <td><%= user.id %></td>
+                <td><%= user.firstname %> <%= user.lname %></td>
+                <td>
+                    <a href="/view-details/<%= user.id %>" class="btn btn-info">View Details</a>
+                </td>
+            </tr>
+        <% }); %>
+    </tbody>
+</table>

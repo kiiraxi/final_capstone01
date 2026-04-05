@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Community Tax Certificate</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      border: 2px solid black;
+      padding: 20px;
+      width: 800px;
+      margin: 0 auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 5px;
+    }
+    .title {
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .section {
+      font-weight: bold;
+      background-color: #f0f0f0;
+    }
+    /* Table setup */
+.thumb-signature-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.thumb-signature-table td {
+  vertical-align: top;
+  padding: 6px 10px;
+}
+
+/* Labels aligned on same baseline */
+.thumb-signature-table .label {
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+/* Right thumb area */
+.thumb-cell {
+  width: 160px;
+  text-align: center;
+}
+
+.thumb-box {
+  width: 100%;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 6px;
+  border-radius: 6px;
+  background: none; /* no border, no background */
+  font-size: 13px;
+  color: #000;
+}
+
+/* Signature area */
+.signature-box {
+  width: 100%;
+  height: 110px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background: white;
+  margin-top: 6px;
+}
+
+/* Signature image */
+.signature-img {
+  max-width: 95%;
+  max-height: 95%;
+  object-fit: contain;
+  filter: contrast(130%) brightness(110%);
+}
+
+/* If no signature image */
+.signature-box.empty {
+  color: #000;
+  font-style: normal;
+}
+
+    .btn-print {
+      margin-top: 20px;
+    }
+    @media print {
+      .btn-print {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="title">COMMUNITY TAX CERTIFICATE (INDIVIDUAL)</div>
+
+  <table>
+    <tr>
+      <td>PLACE OF ISSUE: <strong><%= data.PLACE_ISSUE %></strong></td>
+    <td>DATE: <strong id="currentDate"></strong></td>
+
+    </tr>
+    <tr>
+      <td colspan="2"><b>Certificate No: CCI2002</b></td>
+    </tr>
+  </table>
+
+  <table>
+    <tr>
+      <td colspan="2">NAME: <strong><%= data.FIRST_NAME %> <%= data.MIDDLE_NAME %> <%= data.LAST_NAME %> <%= data.SUFFIX %></strong></td>
+      <td colspan="2">TIN (if any): <strong><%= data.TIN_NUMBER  %></strong></td>
+    </tr>
+    <tr>
+      <td colspan="2">ADDRESS: <strong><%= data.ADDRESS %></strong></td>
+      <td colspan="2">CITIZENSHIP: <strong><%= data.CITIZENSHIP %></strong></td>
+    </tr>
+    <tr>
+      <td colspan="2">PLACE OF BIRTH: <strong><%= data.PLACE_BIRTH %></strong></td>
+   <td colspan="2">DATE OF BIRTH: <strong><%= new Date(data.DATE_BIRTH).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %></strong>
+</td>
+
+    </tr>
+   <tr>
+  <td colspan="2"><b>SEX:</b> <%= data.GENDER %></td>
+  <td colspan="2"><b>CIVIL STATUS:</b> <%= data.CIVIL_STATUS %></td>
+</tr>
+
+    <tr>
+  <td colspan="2"><b>HEIGHT:</b> <%= data.HEIGHT || 'N/A' %></td>
+  <td colspan="2"><b>WEIGHT:</b> <%= data.WEIGHT || 'N/A' %></td>
+</tr>
+
+    <tr>
+      <td colspan="4">PROFESSION / OCCUPATION / BUSINESS: <strong><%= data.PBO %></strong></td>
+    </tr>
+  </table>
+
+  <table>
+    <tr class="section">
+      <td colspan="3"><b>TAX DETAILS</b></td>
+    </tr>
+    <tr>
+      <td><b></b></td>
+      <td><b>Taxable Amount</b></td>
+      <td><b>Community Tax Due</b></td>
+    </tr>
+    <tr>
+      <td>A. BASIC COMMUNITY TAX (₱5.00) Voluntary or Exempted (₱1.00):</td>
+      <td></td>
+      <td>₱ <strong> 5.00 %></strong></td>
+    </tr>
+    <tr>
+      <td>B. ADDITIONAL COMMUNITY TAX (Not to exceed ₱5,000.00):</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>1. GROSS RECEIPT OR ERNINGS DERIVED FROM BUSINESS DURING THE PRECEEDING YEAR(₱1.00 for year ₱1,000.00):</td>
+      <td>₱ <strong><%= data.GRB || '0.00' %></strong></td>
+       <td>₱ <strong><%= data.TTA || '0.00' %></strong></td>
+    </tr>
+    <tr>
+       <td>2. SALARIES OR GROSS RERCEIPT OR EARNINGS DERIVED FROM EXERCISE OF PORESSION OR PURSUIT OF ANY OCCUPATION(₱1.00 for every ₱1,00):</td>
+      <td>₱ <strong></strong></td>
+      <td>₱ <strong><%= data.AGI|| '0.00' %></strong></td>
+    </tr>
+    <tr>
+     <td>3. INCOME FROM REAL PROPERTY(₱1.00 for every ₱1,000):</td>
+      <td>₱ <strong><%= data.REAL_PROPERTY || '0.00' %></strong></td>
+      <td>₱ <strong><%= data.RPI || '0.00' %></strong></td>
+    </tr>
+    <tr>
+      <td><b>TOTAL:</b></td>
+      <td>₱ <strong><%= data.TOTAL_AMOUNT || '0.00' %></strong></td>
+      <td>₱ <strong><%= data.TTA || '0.00' %></strong></td>
+    </tr>
+    <tr>
+      <td><b>INTEREST:</b></td>
+      <td colspan="2">₱ <strong><%= data.INTEREST || '0.00' %></strong></td>
+    </tr>
+    <tr>
+      <td><b>TOTAL AMOUNT PAID:</b></td>
+      <td colspan="2">₱ <strong id="amountValue"><%= data.AMOUNT || '0.00' %></strong></td>
+    </tr>
+    <tr>
+  <td colspan="3"><b>In Words:</b> <em id="amountInWords"></em></td>
+</tr>
+  </table>
+
+ <table class="thumb-signature-table mt-3">
+  <tr>
+    <td class="thumb-cell">
+      <div class="label">Right Thumb Print</div>
+    </td>
+
+    
+    <td colspan="2" class="signature-cell">
+      <div class="label">Taxpayer’s Signature</div>
+      <% if (data.SIGNATURE) { %>
+        <div class="signature-box">
+          <img src="/<%= data.SIGNATURE %>" alt="Signature" class="signature-img" />
+        </div>
+      <% } else { %>
+        <div class="signature-box empty">_______________________</div>
+      <% } %>
+    </td>
+  </tr>
+</table>
+
+<tr>
+  <td colspan="4"><b>Municipal Treasurer</b> _________________________</td>
+</tr>
+
+<div class="btn-print" style="position: fixed; top: 20px; right: 20px; display: flex; flex-direction: column; gap: 8px; z-index: 1000;">
+  <button class="btn btn-primary btn-sm" onclick="window.history.back()">Back</button>
+  
+  <button class="btn btn-primary btn-sm" onclick="downloadPDF()">
+    <i class="bi bi-file-earmark-pdf"></i> Download
+  </button>
+
+  <button class="btn btn-primary btn-sm" onclick="window.print()">
+    <i class="bi bi-printer"></i> Print 
+  </button>
+</div>
+  </div>
+
+  
+<!-- Convert total ctc_amount to words -->
+<script>
+  function numberToWords(num) {
+    const ones = [
+      '', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine',
+      'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen',
+      'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'
+    ];
+    const tens = [
+      '', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'
+    ];
+
+    function convert_hundreds(n) {
+      if (n < 20) return ones[n];
+      if (n < 100) return tens[Math.floor(n / 10)] + (n % 10 ? ' ' + ones[n % 10] : '');
+      return ones[Math.floor(n / 100)] + ' Hundred' + (n % 100 ? ' ' + convert_hundreds(n % 100) : '');
+    }
+
+    function convert_thousands(n) {
+      if (n < 1000) return convert_hundreds(n);
+      if (n < 1000000)
+        return convert_hundreds(Math.floor(n / 1000)) + ' Thousand' + (n % 1000 ? ' ' + convert_hundreds(n % 1000) : '');
+      if (n < 1000000000)
+        return convert_hundreds(Math.floor(n / 1000000)) + ' Million' + (n % 1000000 ? ' ' + convert_thousands(n % 1000000) : '');
+      return convert_hundreds(Math.floor(n / 1000000000)) + ' Billion' + (n % 1000000000 ? ' ' + convert_thousands(n % 1000000000) : '');
+    }
+
+    if (isNaN(num)) return '';
+    const [pesoPart, centavoPart] = num.toString().split('.');
+
+    let words = convert_thousands(parseInt(pesoPart)) + ' Pesos';
+    if (centavoPart) {
+      const cents = parseInt(centavoPart.substring(0, 2));
+      if (cents > 0) words += ' and ' + convert_hundreds(cents) + ' Centavos';
+    }
+    return words + ' Only';
+  }
+
+  // Automatically display the words when viewing
+  document.addEventListener('DOMContentLoaded', () => {
+    const amountText = document.getElementById('amountValue')?.innerText || '0';
+    const numericAmount = parseFloat(amountText.replace(/[^0-9.]/g, '')) || 0;
+    document.getElementById('amountInWords').textContent = numberToWords(numericAmount);
+  });
+</script>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const today = new Date();
+    const formattedDate = today.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+    document.getElementById('currentDate').textContent = formattedDate;
+  });
+</script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script>
+    function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      html2canvas(document.body).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const imgProps = pdf.getImageProperties(imgData);
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        pdf.save('community-tax-certificate.pdf');
+      });
+    }
+  </script>
+
+</body>
+</html>
