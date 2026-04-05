@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>COMMUNITY TAX CERTIFICATE</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #3b7c9a;
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+        }
+        .header-title {
+            font-size: 22px;
+            font-weight: bold;
+        }
+        .sub-header {
+            background-color:#a9abbe65;
+            padding: 10px 20px;
+            font-size: 14px;
+        }
+        .sub-header p {
+            color: #5c09ec88;
+            margin: 0;
+            font-weight: bold;
+        }
+        .required {
+            color: red;
+            font-weight: bold;
+        }
+        .is-invalid {
+        border-color: red;
+    }
+    </style>
+</head>
+<body>
+    <div class="header d-flex align-items-center justify-content-between p-3">
+        <div class="d-flex align-items-center">
+            <img src="assets/img/leonlogo.png" alt="Logo" class="me-2" style="height: 50px;"> 
+            <span class="header-title">PROFESSIONAL TAX</span>
+        </div>
+    </div>
+    
+    <form id="form" action="/ptrform" method="POST" enctype="multipart/form-data">
+
+         <!-- Sub-header -->
+    <div class="sub-header d-flex justify-content-between p-2">
+        <div class="d-flex gap-3">
+            <div>
+                <label class="fw-bold">Place of Issue:</label>
+                <input type="text" class="form-control d-inline-block w-auto" name="place_issue" value="LEON" readonly>
+            </div>
+            <div>
+                <label class="fw-bold">Date Issued:</label>
+                <input type="text" class="form-control d-inline-block w-auto" id="date_issue" name="date_issue" readonly>
+            </div>
+        </div>
+    </div>
+
+  <!-- Page 1 -->
+  <div class="form-page" id="page1">
+    <div class="container p-4 shadow-lg border border-3 mt-3 mb-3 bg-body rounded">
+        
+                    <!-- <h3 class="section-header text-center">Personal Information</h3> -->
+
+      <div class="row mb-3">
+        <div class="col">
+        <label for="lname">Last Name<span class="required">*</span></label>
+          <input type="text" name="lname" id="lname" class="form-control" required>
+        </div>
+        <div class="col">
+                 <label for="firstname">First Name <span class="required">*</span></label>
+          <input type="text" name="firstname" id="firstname" class="form-control" required>
+        </div>
+        <div class="col">
+          <label for="middlename">Middle Name <span class="required">*</span></label>
+
+          <input type="text" name="middlename" id="middlename" class="form-control" required>
+        </div>
+        <div class="col">
+          <label for="suffix">Suffix:</label>
+          <input type="text" name="suffix" id="suffix" class="form-control">
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col">
+           <label for="address">Address <span class="required">*</span></label>
+
+<select name="address" id="address" class="form-control" required>
+    <option value="">--Select Barangay--</option>
+    <option value="Agboy Norte,Leon,Iloilo">Agboy Norte,Leon,Iloilo</option>
+    <option value="Agboy Sur,Leon,Iloilo">Agboy Sur,Leon,Iloilo</option>
+    <option value="Agta,Leon,Iloilo">Agta,Leon,Iloilo</option>
+    <option value="Ambulong,Leon,Iloilo">Ambulong,Leon,Iloilo</option>
+    <option value="Anonang,Leon,Iloilo">Anonang,Leon,Iloilo</option>
+    <option value="Apian,Leon,Iloilo">Apian,Leon,Iloilo</option>
+    <option value="Avanzada,Leon,Iloilo">Avanzada,Leon,Iloilo</option>
+    <option value="Awis,Leon,Iloilo">Awis,Leon,Iloilo</option>
+    <option value="Ayabang,Leon,Iloilo">Ayabang,Leon,Iloilo</option>
+    <option value="Ayubo,Leon,Iloilo">Ayubo,Leon,Iloilo</option>
+    <option value="Bacolod,Leon,Iloilo">Bacolod,Leon,Iloilo</option>
+    <option value="Baje,Leon,Iloilo">Baje,Leon,Iloilo</option>
+    <option value="Banagan,Leon,Iloilo">Banagan,Leon,Iloilo</option>
+    <option value="Barangbang,Leon,Iloilo">Barangbang,Leon,Iloilo</option>
+    <option value="Barasan,Leon,Iloilo">Barasan,Leon,Iloilo</option>
+    <option value="Bayag Norte,Leon,Iloilo">Bayag Norte,Leon,Iloilo</option>
+    <option value="Bayag Sur,Leon,Iloilo">Bayag Sur,Leon,Iloilo</option>
+    <option value="Binolbog,Leon,Iloilo">Binolbog,Leon,Iloilo</option>
+    <option value="Biri Norte,Leon,Iloilo">Biri Norte,Leon,Iloilo</option>
+    <option value="Biri Sur,Leon,Iloilo">Biri Sur,Leon,Iloilo</option>
+    <option value="Bobon,Leon,Iloilo">Bobon,Leon,Iloilo</option>
+    <option value="Bucari,Leon,Iloilo">Bucari,Leon,Iloilo</option>
+    <option value="Buenavista,Leon,Iloilo">Buenavista,Leon,Iloilo</option>
+    <option value="Buga,Leon,Iloilo">Buga,Leon,Iloilo</option>
+    <option value="Bulad,Leon,Iloilo">Bulad,Leon,Iloilo</option>
+    <option value="Bulwang,Leon,Iloilo">Bulwang,Leon,Iloilo</option>
+    <option value="Cabolo-an,Leon,Iloilo">Cabolo-an,Leon,Iloilo</option>
+    <option value="Cabunga-an,Leon,Iloilo">Cabunga-an,Leon,Iloilo</option>
+    <option value="Cabutongan,Leon,Iloilo">Cabutongan,Leon,Iloilo</option>
+    <option value="Cagay,Leon,Iloilo">Cagay,Leon,Iloilo</option>
+    <option value="Camandag,Leon,Iloilo">Camandag,Leon,Iloilo</option>
+    <option value="Camando,Leon,Iloilo">Camando,Leon,Iloilo</option>
+    <option value="Cananaman,Leon,Iloilo">Cananaman,Leon,Iloilo</option>
+    <option value="Capt. Fernando,Leon,Iloilo">Capt. Fernando,Leon,Iloilo</option>
+    <option value="Carara-an,Leon,Iloilo">Carara-an,Leon,Iloilo</option>
+    <option value="Carolina,Leon,Iloilo">Carolina,Leon,Iloilo</option>
+    <option value="Cawilihan,Leon,Iloilo">Cawilihan,Leon,Iloilo</option>
+    <option value="Coyugan Norte,Leon,Iloilo">Coyugan Norte,Leon,Iloilo</option>
+    <option value="Coyugan Sur,Leon,Iloilo">Coyugan Sur,Leon,Iloilo</option>
+    <option value="Danao,Leon,Iloilo">Danao,Leon,Iloilo</option>
+    <option value="Dorog,Leon,Iloilo">Dorog,Leon,Iloilo</option>
+    <option value="Dusacan,Leon,Iloilo">Dusacan,Leon,Iloilo</option>
+    <option value="Gines,Leon,Iloilo">Gines,Leon,Iloilo</option>
+    <option value="Gumboc,Leon,Iloilo">Gumboc,Leon,Iloilo</option>
+    <option value="Igcadios,Leon,Iloilo">Igcadios,Leon,Iloilo</option>
+    <option value="Ingay,Leon,Iloilo">Ingay,Leon,Iloilo</option>
+    <option value="Isian Norte,Leon,Iloilo">Isian Norte,Leon,Iloilo</option>
+    <option value="Isian Victoria,Leon,Iloilo">Isian Victoria,Leon,Iloilo</option>
+    <option value="Jamog Gines,Leon,Iloilo">Jamog Gines,Leon,Iloilo</option>
+    <option value="Lanag,Leon,Iloilo">Lanag,Leon,Iloilo</option>
+    <option value="Lang-og,Leon,Iloilo">Lang-og,Leon,Iloilo</option>
+    <option value="Ligtos,Leon,Iloilo">Ligtos,Leon,Iloilo</option>
+    <option value="Lonoc,Leon,Iloilo">Lonoc,Leon,Iloilo</option>
+    <option value="Lampaya,Leon,Iloilo">Lampaya,Leon,Iloilo</option>
+    <option value="Magcapay,Leon,Iloilo">Magcapay,Leon,Iloilo</option>
+    <option value="Maliao,Leon,Iloilo">Maliao,Leon,Iloilo</option>
+    <option value="Malublub,Leon,Iloilo">Malublub,Leon,Iloilo</option>
+    <option value="Manampunay,Leon,Iloilo">Manampunay,Leon,Iloilo</option>
+    <option value="Marirong,Leon,Iloilo">Marirong,Leon,Iloilo</option>
+    <option value="Mina,Leon,Iloilo">Mina,Leon,Iloilo</option>
+    <option value="Mocol,Leon,Iloilo">Mocol,Leon,Iloilo</option>
+    <option value="Nagbangi,Leon,Iloilo">Nagbangi,Leon,Iloilo</option>
+    <option value="Nalbang,Leon,Iloilo">Nalbang,Leon,Iloilo</option>
+    <option value="Odong-odong,Leon,Iloilo">Odong-odong,Leon,Iloilo</option>
+    <option value="Oluangan,Leon,Iloilo">Oluangan,Leon,Iloilo</option>
+    <option value="Omambong,Leon,Iloilo">Omambong,Leon,Iloilo</option>
+    <option value="Paoy,Leon,Iloilo">Paoy,Leon,Iloilo</option>
+    <option value="Pandan,Leon,Iloilo">Pandan,Leon,Iloilo</option>
+    <option value="Panginman,Leon,Iloilo">Panginman,Leon,Iloilo</option>
+    <option value="Pepe,Leon,Iloilo">Pepe,Leon,Iloilo</option>
+    <option value="Poblacion,Leon,Iloilo">Poblacion,Leon,Iloilo</option>
+    <option value="Paga,Leon,Iloilo">Paga,Leon,Iloilo</option>
+    <option value="Salngan,Leon,Iloilo">Salngan,Leon,Iloilo</option>
+    <option value="Samlague,Leon,Iloilo">Samlague,Leon,Iloilo</option>
+    <option value="Siol Norte,Leon,Iloilo">Siol Norte,Leon,Iloilo</option>
+    <option value="Siol Sur,Leon,Iloilo">Siol Sur,Leon,Iloilo</option>
+    <option value="Tacuyong Norte,Leon,Iloilo">Tacuyong Norte,Leon,Iloilo</option>
+    <option value="Tacuyong Sur,Leon,Iloilo">Tacuyong Sur,Leon,Iloilo</option>
+    <option value="Tagsing,Leon,Iloilo">Tagsing,Leon,Iloilo</option>
+    <option value="Talacuan,Leon,Iloilo">Talacuan,Leon,Iloilo</option>
+    <option value="Ticuan,Leon,Iloilo">Ticuan,Leon,Iloilo</option>
+    <option value="Tina-an Norte,Leon,Iloilo">Tina-an Norte,Leon,Iloilo</option>
+    <option value="Tina-an Sur,Leon,Iloilo">Tina-an Sur,Leon,Iloilo</option>
+    <option value="Tunguan,Leon,Iloilo">Tunguan,Leon,Iloilo</option>
+    <option value="Tu-og,Leon,Iloilo">Tu-og,Leon,Iloilo</option>
+</select>
+
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col">
+         <label for="contact_number">Contact Number <span class="required">*</span></label>
+          <input type="text" name="contact_number" id="contact_number" class="form-control" required>
+        </div>
+        <div class="col">
+         <label for="email">E-mail <span class="required">*</span></label>
+          <input type="email" name="email" id="email" class="form-control" required>
+        </div>
+      </div>
+    <div class="row mb-3">
+        <div class="col">
+           <label for="address">Profession <span class="required">*</span></label>
+
+<select name="profession" id="profession" class="form-control" required>
+ <option value="">--Select Profession--</option>
+                            <option value="Lawyer">LAWYER</option>
+                            <option value="Aeronautical Engineer">AERONAUTICAL ENGINEER</option>         
+                            <option value="Agricultural & Biosystems Engineer">AGRICULTURAL & BIOSYSTEMS ENGINEER</option>
+                            <option value="Agriculturist">AGRICULTURIST</option>
+                            <option value="Air Condition & Refrigeration Specialist">AIR CONDITION & REFRIGERATION SPECIALIST</option>
+                            <option value="Architect">ARCHITECT</option>
+                            <option value="Certified Mill Foreman">CERTIFIED MILL FOREMAN</option>
+                            <option value="Certified Mine Foreman">CERTIFIED MINE FOREMAN</option>
+                            <option value="Certified Plant Mechanic">CERTIFIED PLANT MECHANIC</option>
+                            <option value="Certified Public Accountant">CERTIFIED PUBLIC ACCOUNTANT</option>
+                            <option value="Certified Quarry Foreman">CERTIFIED QUARRY FOREMAN</option>
+                            <option value="Chemical Engineer">CHEMICAL ENGINEER</option>
+                            <option value="Chemical Technician">CHEMICAL TECHNICIAN</option>
+                            <option value="Chemist">CHEMIST</option>
+                            <option value="Chinese Druggist">CHINESE DRUGGIST</option>
+                            <option value="Civil Engineer">CIVIL ENGINEER</option>
+                            <option value="Criminologist">CRIMINOLOGIST</option>
+                            <option value="Customs Broker">CUSTOMS BROKER</option>
+                            <option value="Dental Hygienist">DENTAL HYGIENIST</option>
+                            <option value="Dental Technologist">DENTAL TECHNOLOGIST</option>
+                            <option value="Dentist">DENTIST</option>
+                            <option value="Electronics Engineer">ELECTRONICS ENGINEER</option>
+                            <option value="Electronics Technician">ELECTRONICS TECHNICIAN</option>
+                            <option value="Environmental Planner">ENVIRONMENTAL PLANNER</option>
+                            <option value="Fisheries Professional">FISHERIES PROFESSIONAL</option>
+                            <option value="Foreign Medical Professional">FOREIGN MEDICAL PROFESSIONAL</option>
+                            <option value="Forester">FORESTER</option>
+                            <option value="Geodetic Engineer">GEODETIC ENGINEER</option>
+                            <option value="Geologic Aide">GEOLOGIC AIDE</option>
+                            <option value="Geologist">GEOLOGIST</option>
+                            <option value="Guidance Counselor">GUIDANCE COUNSELOR</option>
+                            <option value="Interior Designer">INTERIOR DESIGNER</option>
+                            <option value="Landscape Architect">LANDSCAPE ARCHITECT</option>
+                            <option value="Librarian">LIBRARIAN</option>
+                            <option value="Master Plumber">MASTER PLUMBER</option>
+                            <option value="Mechanical Engineer">MECHANICAL ENGINEER</option>
+                            <option value="Medical Technologist">MEDICAL TECHNOLOGIST</option>
+                            <option value="Metallurgical Engineer">METALLURGICAL ENGINEER</option>
+                            <option value="Metallurgical Plant Foreman">METALLURGICAL PLANT FOREMAN</option>
+                            <option value="Midwife">MIDWIFE</option>
+                            <option value="Midwife (RA 2382)">MIDWIFE (RA 2382)</option>
+                            <option value="Mining Engineer">MINING ENGINEER</option>
+                            <option value="Naval Architect">NAVAL ARCHITECT</option>
+                            <option value="Nurse">NURSE</option>
+                            <option value="Nutritionist Dietitian">NUTRITIONIST DIETITIAN</option>
+                            <option value="Occupational Therapist">OCCUPATIONAL THERAPIST</option>
+                            <option value="Occupational Therapy Technician">OCCUPATIONAL THERAPY TECHNICIAN</option>
+                            <option value="Ocular Pharmacologist">OCULAR PHARMACOLOGIST</option>
+                            <option value="Optometrist">OPTOMETRIST</option>
+                            <option value="Pharmacist">PHARMACIST</option>
+                            <option value="Physical Therapist">PHYSICAL THERAPIST</option>
+                            <option value="Physician">PHYSICIAN</option>
+                            <option value="Professional Electrical Engineer">PROFESSIONAL ELECTRICAL ENGINEER</option>
+                            <option value="Professional Electronics Engineer">PROFESSIONAL ELECTRONICS ENGINEER</option>
+                            <option value="Professional Food Technologist">PROFESSIONAL FOOD TECHNOLOGIST</option>
+                            <option value="Professional Mechanical Engineer">PROFESSIONAL MECHANICAL ENGINEER</option>
+                            <option value="Professional Teacher">PROFESSIONAL TEACHER</option>
+                            <option value="Psychologist">PSYCHOLOGIST</option>
+                            <option value="Psychometrician">PSYCHOMETRICIAN</option>
+
+</select>
+
+        </div>
+      </div>
+      <div class="text-end">
+         <button onclick="window.location.href='userhomepage.html'" style="background-color: #3b7c9a; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+                        Back
+                    </button>
+        <button type="button" style="background-color: #3b7c9a; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;" onclick="goToPage2()">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 2 -->
+  <div class="form-page d-none" id="page2">
+    <div class="container p-4 shadow-lg border border-3 mt-3 mb-3 bg-body rounded">
+      <div class="row mb-3">
+        <div class="col">
+           <label for="registered_date">Registered Date <span class="required">*</span></label>
+
+          <input type="date" name="registered_date" id="registered_date" class="form-control" required>
+        </div>
+        <div class="col">
+          <label for="expiration_date">Expiration Date <span class="required">*</span></label>
+
+          <input type="date" name="expiration_date" id="expiration_date" class="form-control" required>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col">
+           <label for="prc_num" class="form-label">PRC Registration No. <span class="required">*</span></label>
+          <input type="text" name="prc_num" id="prc_num" class="form-control" required>
+        </div>
+        <div class="col">
+          <label for="myfile">Upload Image of your ID/Receipt <span class="required">*</span></label><br>
+
+          <input type="file" name="myfile" id="myfile" class="form-control" required>
+        </div>
+      </div>
+      <div class="text-end">
+       <button type="submit" style="background-color: #3b7c9a; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+                        Submit
+                    </button>
+                    
+      </div>
+    </div>
+  </div>
+</form>
+<script>
+function goToPage2() {
+  const requiredFields = document.querySelectorAll('#page1 [required]');
+  let allValid = true;
+
+  requiredFields.forEach(field => {
+    if (!field.value.trim()) {
+      field.classList.add('is-invalid');
+      allValid = false;
+    } else {
+      field.classList.remove('is-invalid');
+    }
+  });
+
+  if (allValid) {
+    document.getElementById('page1').classList.add('d-none');
+    document.getElementById('page2').classList.remove('d-none');
+  } else {
+    alert('Please fill out all required fields on Page 1.');
+  }
+}
+</script>
+
+ <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let now = new Date();
+            let year = now.getFullYear();
+            let month = String(now.getMonth() + 1).padStart(2, '0');
+            let day = String(now.getDate()).padStart(2, '0');
+            let formattedDate = `${year}-${month}-${day}`;
+
+            document.getElementById("date_issue").value = formattedDate;
+        });
+        </script>
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+
+
+
+</body>
+</html>
