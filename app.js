@@ -9,7 +9,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs'); // change if you use pug or hbs
+app.set('view engine', 'ejs'); 
 
 const multer = require('multer');
 app.set("view engine", "ejs");
@@ -77,7 +77,7 @@ app.get('/register.html', isNotLoggedIn, (req, res) => {
 });
 
 
-//all file in upload folder
+
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
 //------- MULTER SETUP ------------- 
@@ -739,6 +739,10 @@ conn.query(insertQuery, [
         res.header("Expires", "0");
         next();
     }
+
+    app.get('adminlogin', (req, res) =>{
+      res.sendFile(__dirname + 'views/adminlogin.html');
+    });
 
     // Admin Login Route
 
