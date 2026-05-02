@@ -8,6 +8,7 @@ The system is built using **Node.js, Express, MySQL, and EJS**, and is deployed 
 
 ---
 Team Members
+
 Karen Alloones – Lead Programmer
 
 
