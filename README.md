@@ -47,7 +47,7 @@ Authentication
 Form Management
 
 * Cedula (Community Tax Certificate) application form
-* File upload support (e.g., images/documents)
+* File upload support (e.g., images
 * Duplicate submission prevention
 
 Database Integration
