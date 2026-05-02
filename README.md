@@ -117,8 +117,7 @@ DB_HOST=dpg-d78nd2qdbo4c738acelg-a
 DB_USER=capstone01_user
 DB_PASSWORD=JljPUmSeonKIQ0chYoFvifvQio7xINTz
 DB_NAME=capstone01
-EMAIL_USER=your_email
-EMAIL_PASS=your_email_password
+
 ```
 
 ### 4. Run the application
